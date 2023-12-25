@@ -31,11 +31,7 @@ type ClickResult struct {
 var ErrOutOfRange = errors.New("point in out of board")
 
 func (g *Game) MakeClick(p entity.Point) (ClickResult, error) {
-	if p.X < 0 || p.Y < 0 {
-		return ClickResult{}, ErrOutOfRange
-	}
-
-	if p.X >= g.sizes.Width() || p.Y >= g.sizes.Height() {
+	if !g.sizes.Contains(p) {
 		return ClickResult{}, ErrOutOfRange
 	}
 	if g.lastPoint == nil {
