@@ -5,11 +5,8 @@ import "github.com/vitaliy-ukiru/find-pair-game/domain/game/internal"
 type CardStatus int
 
 const (
-	CardClose CardStatus = iota
-	CardOpen
-	CardGuess
+	CardInvalid CardStatus = -1
+	CardHide               = CardStatus(internal.CellHided)
+	CardOpen               = CardStatus(internal.CellOpened)
+	CardGuess              = CardStatus(internal.CellGuessed)
 )
-
-func cardStatusFromCell(status internal.CellStatus) CardStatus {
-	return CardStatus(status)
-}

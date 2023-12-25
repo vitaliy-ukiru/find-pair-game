@@ -84,7 +84,7 @@ func (g *Game) VisibleItems() []BoardItem {
 			if cell.IsOpened() {
 				items = append(items, BoardItem{
 					Point:  point,
-					Status: cardStatusFromCell(cell.Status),
+					Status: CardStatus(cell.Status),
 					Card:   cell.ItemId,
 				})
 			}
@@ -102,7 +102,7 @@ func (g *Game) ItemAt(p entity.Point) BoardItem {
 	cell := g.cells[p]
 	item := BoardItem{
 		Point:  p,
-		Status: cardStatusFromCell(cell.Status),
+		Status: CardStatus(cell.Status),
 	}
 	if cell.IsOpened() {
 		item.Card = cell.ItemId
