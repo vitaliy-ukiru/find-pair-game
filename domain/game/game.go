@@ -50,9 +50,9 @@ func (g *Game) validate() error {
 	return nil
 }
 
-func (g *Game) GuessedCards() []entity.CardId {
-	return g.guessed.ToSlice()
-}
+func (g *Game) Sizes() entity.Sizes           { return g.sizes }
+func (g *Game) Cards() []entity.CardId        { return slices.Clone(g.cards) }
+func (g *Game) GuessedCards() []entity.CardId { return g.guessed.ToSlice() }
 
 type BoardItem struct {
 	entity.Point
