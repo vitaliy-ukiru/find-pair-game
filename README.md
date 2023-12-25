@@ -1,4 +1,4 @@
-## find couple game
+## find pair game
 
 Is engine of game for find a pair of items.
 
