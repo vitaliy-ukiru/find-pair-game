@@ -14,9 +14,6 @@ import (
 )
 
 var cards = visual.Cards{
-	//"CAR":        "🚗",
-	//"CHICKEN":    "🐤",
-	//"BALL":       "🏐",
 	"EIGHT_BALL": "🎱",
 	"APPLE":      "🍏",
 }
@@ -38,7 +35,6 @@ func main() {
 		consolerender.NewCardBracketsRenderer(cards),
 		consolerender.NewTableRenderer(func() *tablewriter.Table {
 			t := tablewriter.NewWriter(os.Stdout)
-			t.SetCaption()
 			t.SetColWidth(7)
 			return t
 		}),
