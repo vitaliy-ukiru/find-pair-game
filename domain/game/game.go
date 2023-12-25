@@ -29,12 +29,8 @@ var ErrInvalidBoardSizes = errors.New("count of cells must be even")
 var ErrInvalidCountOfCards = errors.New("count of items must be half of cells")
 
 func (g *Game) Init() error {
-	cellsCount := g.sizes.CellsCount()
-	if cellsCount%2 != 0 {
-		return ErrInvalidBoardSizes
-	}
-	if len(g.cards) != cellsCount/2 {
-		return ErrInvalidCountOfCards
+	if err := g.validate(); err != nil {
+		return err
 	}
 
 	g.cells = internal.Generate(g.cards, g.sizes)
@@ -43,12 +39,15 @@ func (g *Game) Init() error {
 	return nil
 }
 
-func (g *Game) Sizes() entity.Sizes {
-	return g.sizes
-}
-
-func (g *Game) Cards() []entity.CardId {
-	return slices.Clone(g.cards)
+func (g *Game) validate() error {
+	cellsCount := g.sizes.CellsCount()
+	if cellsCount%2 != 0 {
+		return ErrInvalidBoardSizes
+	}
+	if len(g.cards) != cellsCount/2 {
+		return ErrInvalidCountOfCards
+	}
+	return nil
 }
 
 func (g *Game) GuessedCards() []entity.CardId {
@@ -95,6 +94,11 @@ func (g *Game) VisibleItems() []BoardItem {
 }
 
 func (g *Game) ItemAt(p entity.Point) BoardItem {
+	if !g.sizes.Contains(p) {
+		return BoardItem{
+			Status: CardInvalid,
+		}
+	}
 	cell := g.cells[p]
 	item := BoardItem{
 		Point:  p,
